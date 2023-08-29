@@ -6,7 +6,8 @@ from pathlib import Path
 # Normalize
 
 UKRAINIAN_SYMBOLS = 'абвгдеєжзиіїйклмнопрстуфхцчшщьюя'
-TRANSLATION = ("a", "b", "v", "g", "d", "e", "je", "zh", "z", "y", "i", "ji", "j", "k", "l", "m", "n", "o", "p", "r", "s", "t", "u", "f", "h", "ts", "ch", "sh", "sch", "", "ju", "ja")
+TRANSLATION = ("a", "b", "v", "g", "d", "e", "je", "zh", "z", "y", "i", "ji", "j", "k", "l", "m", "n", "o", "p", "r",
+               "s", "t", "u", "f", "h", "ts", "ch", "sh", "sch", "", "ju", "ja")
 
 TRANS = {}
 
@@ -123,7 +124,11 @@ def get_folder_objects(root_path):
             except OSError:
                 pass
 
-def main(folder_path):
+def main():
+    path = sys.argv[1]
+    print(f"Start in {path}")
+    folder_path = Path(path)
+
     scan(folder_path)
 
     for file in images_files:
@@ -147,9 +152,5 @@ def main(folder_path):
     get_folder_objects(folder_path)
 
 if __name__ == '__main__':
-    path = sys.argv[1]
-    print(f"Start in {path}")
-
-    arg = Path(path)
-    main(arg)
+    main()
 
