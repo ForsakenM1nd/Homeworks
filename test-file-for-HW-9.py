@@ -294,10 +294,19 @@ from functools import reduce
 #
 # print(amount_payment(payment))
 
-list = [{'name': 'John', 'phone': '123'}, {'name': 'Smith', 'phone': '123453'}]
+# list = [{'name': 'John', 'phone': '123'}, {'name': 'Smith', 'phone': '123453'}]
+#
+# for user in list:
+#     if 'John' in user.values():
+#         print("True")
+#     else:
+#         print(False)
 
-for user in list:
-    if 'John' in user.values():
-        print("True")
-    else:
-        print(False)
+class Adder:
+    def __init__(self, add_value):
+        self.add_value = add_value
+
+
+two_adder = Adder(2)
+y = Adder(2)
+print(id(two_adder) == id(y))
