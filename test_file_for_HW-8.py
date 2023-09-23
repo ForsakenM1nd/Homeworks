@@ -63,10 +63,40 @@ from datetime import datetime, date, timedelta
 #
 # print(get_birthdays_per_week(users_list))
 
-current_date = date.today()
-end_of_week = current_date.replace(day=(current_date.day + 6))
-print(current_date)
-print(current_date.year)
-print(current_date.month)
-print(current_date.day)
-print(end_of_week)
+# current_date = date.today()
+# end_of_week = current_date.replace(day=(current_date.day + 6))
+# print(current_date)
+# print(current_date.year)
+# print(current_date.month)
+# print(current_date.day)
+# print(end_of_week)
+
+class ListedValuesDict:
+    def __init__(self):
+        self.data = {}
+
+    def __setitem__(self, key, value):
+        if key in self.data:
+            self.data[key].append(value)
+            print(self.data)
+        else:
+            self.data[key] = [value]
+            print(self.data)
+
+    def __getitem__(self, key):
+        result = str(self.data[key][0])
+        print(result)
+        # result = ''
+        for value in self.data[key][1:]:
+            result += ", " + str(value)
+        return result
+
+
+l_dict = ListedValuesDict()
+l_dict[1] = 'a'
+l_dict[1] = 'b'
+l_dict[0] = 'q'
+l_dict[2] = 'e'
+print(l_dict[1])    # a, b
+print(l_dict[0])
+print(l_dict[2])
