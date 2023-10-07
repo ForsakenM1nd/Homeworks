@@ -1,6 +1,7 @@
 from collections import UserDict
 from datetime import datetime
 import re
+import pickle
 
 
 class Field:
@@ -144,6 +145,25 @@ class AddressBook(UserDict):
             yield new_list
             start_point += quantity_of_records
 
+    def save_to_file(self):
+        with open("addressbook.bin", "wb") as f:
+            pickle.dump(self.data, f)
+
+    def load_from_file(self, file):
+        with open(file, "rb") as f:
+            self.data = pickle.load(f)
+
+    def search(self, data_to_find: str):
+        print("Search result:")
+        search_result = []
+        for val in self.data.values():
+            if (data_to_find.lower() in str(val.name).lower()
+                    or any(data_to_find in str(phone) for phone in val.phones)):
+                search_result.append(str(val))
+
+        for i in search_result:
+            print(i)
+
     def delete(self, name: Name):
         for key, value in self.data.items():
             if key == name:
@@ -197,8 +217,33 @@ john = book.find("John")
 found_phone = john.find_phone("5555555555")
 # print(f"{john.name} found: {found_phone}")  # Виведення: 5555555555
 
-iterator = book.iterator(2)
-print(next(iterator))
+# iterator = book.iterator(2)
+# print(next(iterator))
+
+book.save_to_file()
+
+print("book recorded")
 
 # Видалення запису Jane
 book.delete("Jane")
+book.delete("John")
+
+print("book deleted")
+
+for name, record in book.data.items():
+    print(record)
+
+book.load_from_file("addressbook.bin")
+
+print("book loaded")
+
+for name, record in book.data.items():
+    print(record)
+
+print("jik")
+
+book.search("1")
+
+book.search("5")
+
+
